@@ -64,7 +64,7 @@ public:
 
   T &operator()(int i, int j) override
   {
-    if (i >= n_ || j >= n_ || i < 0 || j < 0)
+    if ((unsigned)i >= n_ || (unsigned)j >= n_ || (unsigned)i < 0 || (unsigned)j < 0)
       throw std::out_of_range("Index out of range for matrix of size n_");
     else if (i == j)
       return data_[i];
@@ -75,7 +75,7 @@ public:
   unsigned NormL0() const override
   {
     unsigned count = 0;
-    for (int i = 0; i < n_; i++)
+    for (unsigned i = 0; i < n_; i++)
     {
       if (data_[i] != 0)
         count++;
@@ -85,9 +85,9 @@ public:
 
   void Print(std::ostream &ostream) override
   {
-    for (int i = 0; i < n_; i++)
+    for (unsigned i = 0; i < n_; i++)
     {
-      for (int j = 0; j < n_; j++)
+      for (unsigned j = 0; j < n_; j++)
       {
         if (i == j)
           ostream << data_[i] << " ";
@@ -113,7 +113,7 @@ private:
 public:
   MatrixSymmetric() { n_ = 0; }
 
-  MatrixSymmetric(const int n) : n_(n)
+  MatrixSymmetric(const int n)
   {
     if (n < 0)
     {
@@ -121,6 +121,7 @@ public:
     }
     else
     {
+      n_ = n;
       data_.resize(n * (n + 1) / 2);
     }
   }
@@ -132,7 +133,7 @@ public:
 
   T &operator()(int i, int j) override
   {
-    if (i >= n_ || j >= n_ || i < 0 || j < 0)
+    if ((unsigned)i >= n_ || (unsigned)j >= n_ || (unsigned)i < 0 || (unsigned)j < 0)
       throw std::out_of_range("Index out of range for matrix of size n_");
     else if (i >= j)
       return data_[j + i * (i + 1) / 2];
@@ -143,12 +144,13 @@ public:
   unsigned NormL0() const override
   {
     unsigned count = 0;
-    for (int i = 0; i < n_ * n_; i++)
+    for (unsigned i = 0; i < n_; i++)
     {
-      for (int j = 0; j < i; j++)
+      for (unsigned j = 0; j <= i; j++)
       {
         if (data_[j + i * (i + 1) / 2] != 0)
-          count++;
+          {if (i==j) count ++;
+          else count += 2;}
       }
     }
     return count;
@@ -156,9 +158,9 @@ public:
 
   void Print(std::ostream &ostream) override
   {
-    for (int i = 0; i < n_; i++)
+    for (unsigned i = 0; i < n_; i++)
     {
-      for (int j = 0; j < n_; j++)
+      for (unsigned j = 0; j < n_; j++)
       {
         if (i >= j)
         {

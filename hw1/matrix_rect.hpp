@@ -71,9 +71,9 @@ public:
 
   void Print(std::ostream &ostream)
   {
-    for (int i = 0; i < n_rows; i++)
+    for (unsigned i = 0; i < n_rows; i++)
     {
-      for (int j = 0; j < n_cols; j++)
+      for (unsigned j = 0; j < n_cols; j++)
       {
         ostream << data_[i * n_cols + j] << " ";
       }
@@ -85,16 +85,16 @@ public:
   {
     if (Broadcastable<T>(*this, mat))
     {
-      int out_rows = std::max(this.n_rows, mat.size_rows());
-      int out_cols = std::max(this.n_cols, mat.size_cols());
+      unsigned out_rows = std::max(this->n_rows, mat.size_rows());
+      unsigned out_cols = std::max(this->n_cols, mat.size_cols());
 
       Matrix2D<T> ret(out_rows, out_cols);
 
-      for (int i = 0; i < n_rows; ++i)
+      for (unsigned i = 0; i < out_rows; ++i)
       {
-        for (int j = 0; j < n_cols; ++j)
+        for (unsigned j = 0; j < out_cols; ++j)
         {
-          ret(i, j) = (*this)(i, j) * mat(i % mat.size_rows(), j % mat.size_cols());
+          ret(i, j) = (*this)(i%this->n_rows, j%this->n_cols) * mat(i % mat.size_rows(), j % mat.size_cols());
         }
       }
 

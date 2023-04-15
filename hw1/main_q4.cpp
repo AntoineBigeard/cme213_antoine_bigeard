@@ -9,6 +9,10 @@
 unsigned int count_range(const std::set<double> &data, const double lb,
                          const double ub)
 {
+  if (lb > ub)
+  {
+    throw std::invalid_argument("Lower bound is larger than upper bound.");
+  }
   std::set<double>::iterator itr_left = data.lower_bound(lb);
   std::set<double>::iterator itr_right = data.upper_bound(ub);
 

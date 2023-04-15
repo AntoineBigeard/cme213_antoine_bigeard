@@ -18,16 +18,14 @@ Matrix::~Matrix() {}
 
 /* TODO: Modify the following classes so that the code runs as expected */
 
-class SparseMatrix
-{
+class SparseMatrix : public Matrix{
 public:
-  std::string repr() const override { return "sparse"; }
+  std::string repr() override { return "sparse"; }
 };
 
-class ToeplitzMatrix
-{
+class ToeplitzMatrix : public Matrix{
 public:
-  std::string repr() const override { return "toeplitz"; }
+  std::string repr() override { return "toeplitz"; }
 };
 
 /* TODO: This function should accept a vector of Matrices and call the repr
@@ -35,9 +33,9 @@ public:
  */
 void PrintRepr(const std::vector<std::shared_ptr<Matrix>> &vec)
 {
-  for (int i = 0, i < vec.size(), i++)
+  for (unsigned i = 0; i < vec.size(); i++)
   {
-    std::cout << vec[i].repr() << " ";
+    std::cout << vec[i]->repr() << " ";
   }
 }
 

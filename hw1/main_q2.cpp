@@ -49,12 +49,12 @@ TEST(testMatrix, testDot1)
 
   Matrix2D<int> C = A.dot(B);
 
-  EXPECT_EQ(C(0, 0), 2);
-  EXPECT_EQ(C(0, 1), 4);
-  EXPECT_EQ(C(0, 2), 3);
-  EXPECT_EQ(C(1, 0), 16);
-  EXPECT_EQ(C(1, 1), 15);
-  EXPECT_EQ(C(1, 2), 0);
+  EXPECT_EQ(C(0, 0), 2)<< "Result should be 2 for this element";
+  EXPECT_EQ(C(0, 1), 4)<< "Result should be 4 for this element";
+  EXPECT_EQ(C(0, 2), 3)<< "Result should be 3 for this element";
+  EXPECT_EQ(C(1, 0), 16)<< "Result should be 16 for this element";
+  EXPECT_EQ(C(1, 1), 15)<< "Result should be 15 for this element";
+  EXPECT_EQ(C(1, 2), 0)<< "Result should be 0 for this element";
 }
 
 // 2
@@ -73,10 +73,10 @@ TEST(testMatrix, testDot2)
 
   Matrix2D<int> C = A.dot(B);
 
-  EXPECT_EQ(C(0, 0), 2);
-  EXPECT_EQ(C(0, 1), 4);
-  EXPECT_EQ(C(1, 0), 2);
-  EXPECT_EQ(C(1, 1), 6);
+  EXPECT_EQ(C(0, 0), 2) << "Result should be 2 for this element";
+  EXPECT_EQ(C(0, 1), 4) << "Result should be 4 for this element";
+  EXPECT_EQ(C(1, 0), 4) << "Result should be 4 for this element";
+  EXPECT_EQ(C(1, 1), 6) << "Result should be 6 for this element";
 }
 
 // 3
@@ -95,10 +95,10 @@ TEST(testMatrix, testDot3)
 
   Matrix2D<int> C = A.dot(B);
 
-  EXPECT_EQ(C(0, 0), 2);
-  EXPECT_EQ(C(0, 1), 2);
-  EXPECT_EQ(C(1, 0), 8);
-  EXPECT_EQ(C(1, 1), 6);
+  EXPECT_EQ(C(0, 0), 2)<< "Result should be 2 for this element";
+  EXPECT_EQ(C(0, 1), 2)<< "Result should be 2 for this element";
+  EXPECT_EQ(C(1, 0), 8)<< "Result should be 8 for this element";
+  EXPECT_EQ(C(1, 1), 6)<< "Result should be 6 for this element";
 }
 
 // 4
@@ -116,8 +116,8 @@ TEST(testMatrix, testDot4)
 
   Matrix2D<int> C = A.dot(B);
 
-  EXPECT_EQ(C(0, 0), 4);
-  EXPECT_EQ(C(0, 1), 4);
-  EXPECT_EQ(C(1, 0), 8);
-  EXPECT_EQ(C(1, 1), 6);
+  EXPECT_EQ(C(0, 0), 4)<< "Result should be 4 for this element";
+  EXPECT_EQ(C(0, 1), 4)<< "Result should be 4 for this element";
+  EXPECT_EQ(C(1, 0), 8)<< "Result should be 8 for this element";
+  EXPECT_EQ(C(1, 1), 6)<< "Result should be 6 for this element";
 }

@@ -40,14 +40,14 @@ struct Student
 bool all_students_passed(const std::vector<Student> &students,
                          double pass_threshold)
 {
-  return std::all_of(students.begin(), students.end(), [](Student s)
-                     { return s.homework * HOMEWORK_WEIGHT + MIDTERM_WEIGHT * 0.35 + FINAL_EXAM_WEIGHT * 0.45 >= 0.6; })
+  return std::all_of(students.begin(), students.end(), [pass_threshold](Student s){
+    return s.homework * HOMEWORK_WEIGHT + s.midterm*MIDTERM_WEIGHT + s.final_exam * FINAL_EXAM_WEIGHT >= pass_threshold; });
 }
 
 /**********  Q5c: Odd first, even last **********/
 void sort_odd_even(std::vector<int> &data)
 {
-  data.sort([](int a, int b)
+  std::sort(data.begin(), data.end(), [](int a, int b)
             {
       if (a%2 != 0 && b%2 == 0) {return true;}
       else if (a%2 == 0 && b%2 != 0) {return false;}
@@ -104,7 +104,6 @@ int main()
   // Q5b test
   std::vector<Student> students_1 = {
       Student(1., 1., 1.), Student(0.6, 0.6, 0.6), Student(0.8, 0.65, 0.7)};
-
   if (all_students_passed(students_1, 0.6))
     std::cout << "Q5b: PASSED" << std::endl;
   else
