@@ -6,8 +6,16 @@ For MatrixDiagonal, we just use a vector of size n to save data.
 
 For MatrixSymmetric, we use a vector of size n*(n+1)/2. Value (i,j), with i >= j, is stored in index (j + i*(i+1)/2).
 
-## Problem 2, 3, 4
-It is pretty straigth forward in the code.
+## Problem 2
+Use np.broadcast rules to check if it is broadcastable.
+To do the work efficiently, use euclidian rest with the operator % to access the elements of both the matrices properly.
+
+## Problem 3
+To build the subclass specific matrices, overwrite the repr().
+
+## Problem 4
+Don't forget to throw an error in case the range is not valid.
+Then just use std::distance to compute the number of "hops" between the two iterators.
 
 ## Problem 5
 ### Qa
