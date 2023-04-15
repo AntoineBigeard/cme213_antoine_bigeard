@@ -47,7 +47,7 @@ private:
 public:
   MatrixDiagonal() { n_ = 0; }
 
-  MatrixDiagonal(const int n) : n_(n) data_(n)
+  MatrixDiagonal(const int n)
   {
     if (n < 0)
     {
@@ -55,6 +55,7 @@ public:
     }
     else
     {
+      n_ = n;
       data_.resize(n);
     }
   }
