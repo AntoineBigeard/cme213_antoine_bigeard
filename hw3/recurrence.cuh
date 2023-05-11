@@ -23,7 +23,7 @@ __global__ void recurrence(const elem_type* input_array,
                            size_t array_length) {
   uint idx = blockIdx.x * blockDim.x + threadIdx.x;
   uint stride = blockDim.x * gridDim.x;
-  while idx < array_length {
+  while (idx < array_length) {
     elem_type val = 0;
     elem_type c = input_array[idx]
     for (uint i=0; i<num_iter, i++) {
