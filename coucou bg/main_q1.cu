@@ -16,6 +16,7 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+#include <random>
 
 #include "gtest/gtest.h"
 #include "recurrence.cuh"
@@ -42,8 +43,8 @@ extern const size_t ITER_MAX_CHECK = 10;
 // TODO: initialize an array of size arr_size in input_array with random floats
 // between -1 and 1
 void initialize_array(vec &input_array, size_t arr_size) {
-  for (uint i = 0; i < arr_size; ++i) {
-    input_array.push_back((float)rand() / RAND_MAX * 2 - 1);
+  for(size_t i = 0; i < arr_size; i++){
+    input_array.push_back((float) rand() / (float) RAND_MAX * 2 - 1);
   }
 }
 
@@ -58,6 +59,7 @@ void host_recurrence(vec &input_array, vec &output_array, size_t num_iter,
                    return z;
                  });
 }
+
 
 class RecurrenceTestFixture : public ::testing::Test {
  protected:
@@ -80,11 +82,8 @@ class RecurrenceTestFixture : public ::testing::Test {
     device_output_array = nullptr;
 
     // TODO: allocate num_bytes of memory to the device arrays.
-    // Hint: use cudaMalloc
-
     cudaMalloc(&device_input_array, num_bytes);
     cudaMalloc(&device_output_array, num_bytes);
-
   }
 
   // TODO: deallocate memory from both device arrays
@@ -96,8 +95,6 @@ class RecurrenceTestFixture : public ::testing::Test {
   void initialize() {
     initialize_array(init_arr, MAX_ARR_SIZE);
     check_initialization(init_arr, MAX_ARR_SIZE);
-
-    // copy input to GPU
     cudaMemcpy(device_input_array, &init_arr[0], num_bytes,
                cudaMemcpyHostToDevice);
     check_launch("copy to gpu");
@@ -119,8 +116,6 @@ class RecurrenceTestFixture : public ::testing::Test {
 // CONSTRUCTOR and deallocate the memory in the TEST FIXTURE DESTRUCTOR.
 // Hint: use cudaMalloc and cudaFree
 TEST_F(RecurrenceTestFixture, GPUAllocationTest_1) {
-  // if either memory allocation failed in the fixture constructor, report an
-  // error message
   if (!device_input_array || !device_output_array) {
     FAIL() << "Couldn't allocate memory!" << endl;
   }

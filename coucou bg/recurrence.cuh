@@ -21,20 +21,19 @@ typedef float elem_type;
 __global__ void recurrence(const elem_type* input_array,
                            elem_type* output_array, size_t num_iter,
                            size_t array_length) {
-  uint idx = blockIdx.x * blockDim.x + threadIdx.x;
-  uint stride = blockDim.x * gridDim.x;
-  while idx < array_length {
-    elem_type val = 0;
-    elem_type c = input_array[idx]
-    for (uint i=0; i<num_iter, i++) {
-      val += val*val + c;
-    }
-    output_array[idx] = val;
-    i += stride;
+  int index = threadIdx.x + blockIdx.x * blockDim.x;
+  int stride = blockDim.x * gridDim.x;
+
+  for (int idx = index; idx < array_length; idx += stride)
+  {
+      elem_type res = 0;
+      elem_type temp = input_array[idx];
+      for(int i = 0; i < num_iter; i++){
+        res = res * res + temp;
+      }
+      output_array[idx] = res;
   }
 }
-
-
 /**
 * This function calls the recurrence kernel
 *
@@ -56,11 +55,10 @@ double doGPURecurrence(const elem_type* d_input, elem_type* d_output,
                        size_t grid_size) {
   event_pair timer;
   start_timer(&timer);
-  // TODO: launch kernel
+
   recurrence<<<grid_size, block_size>>>(d_input, d_output, num_iter, array_length);
   cudaDeviceSynchronize();
-
-  check_launch("gpu recurrence");
+  
   return stop_timer(&timer);
 }
 
