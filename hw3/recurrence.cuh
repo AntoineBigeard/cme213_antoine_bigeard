@@ -18,48 +18,49 @@ typedef float elem_type;
  * TODO: implement the kernel recurrence.
  * The CPU implementation is in host_recurrence() in main_q1.cu.
  */
-__global__ void recurrence(const elem_type* input_array,
-                           elem_type* output_array, size_t num_iter,
-                           size_t array_length) {
+__global__ void recurrence(const elem_type *input_array,
+                           elem_type *output_array, size_t num_iter,
+                           size_t array_length)
+{
   uint idx = blockIdx.x * blockDim.x + threadIdx.x;
   uint stride = blockDim.x * gridDim.x;
-  while (idx < array_length) {
+  while (idx < array_length)
+  {
     elem_type val = 0;
-    elem_type c = input_array[idx]
-    for (uint i=0; i<num_iter, i++) {
-      val += val*val + c;
+    elem_type c = input_array[idx];
+    for (uint i = 0; i < num_iter; i++)
+    {
+      val = val * val + c;
     }
     output_array[idx] = val;
-    i += stride;
+    idx += stride;
   }
 }
 
-
 /**
-* This function calls the recurrence kernel
-*
-* d_input:
-*   array with initialized input values
-* d_output:
-*   array to be filled with output of reccurence code
-* num_iter:
-*   Number of times we will iterate before checking for convergence
-* array_length:
-*   Size of arrays d_input and d_output
-* block_size:
-*   Number of threads in CUDA block
-* grid_size:
-*   Number of blocks in CUDA call
-*/
-double doGPURecurrence(const elem_type* d_input, elem_type* d_output,
+ * This function calls the recurrence kernel
+ *
+ * d_input:
+ *   array with initialized input values
+ * d_output:
+ *   array to be filled with output of reccurence code
+ * num_iter:
+ *   Number of times we will iterate before checking for convergence
+ * array_length:
+ *   Size of arrays d_input and d_output
+ * block_size:
+ *   Number of threads in CUDA block
+ * grid_size:
+ *   Number of blocks in CUDA call
+ */
+double doGPURecurrence(const elem_type *d_input, elem_type *d_output,
                        size_t num_iter, size_t array_length, size_t block_size,
-                       size_t grid_size) {
+                       size_t grid_size)
+{
   event_pair timer;
   start_timer(&timer);
   // TODO: launch kernel
   recurrence<<<grid_size, block_size>>>(d_input, d_output, num_iter, array_length);
-  cudaDeviceSynchronize();
-
   check_launch("gpu recurrence");
   return stop_timer(&timer);
 }

@@ -1,0 +1,232 @@
+Starting at Fri May 12 11:08:09 PM UTC 2023
+
+nvcc -isystem ./googletest-main/googletest/include/ -O2 -std=c++14 -arch=compute_75 -code=sm_75 -c main_q2.cu
+nvcc -isystem ./googletest-main/googletest/include/ -O2 -std=c++14 -arch=compute_75 -code=sm_75 -lpthread main_q2.o gtest_main.a -o main_q2
+nvcc -isystem ./googletest-main/googletest/include/ -O2 -std=c++14 -arch=compute_75 -code=sm_75 -c main_q3.cu
+nvcc -isystem ./googletest-main/googletest/include/ -O2 -std=c++14 -arch=compute_75 -code=sm_75 -lpthread main_q3.o gtest_main.a -o main_q3
+
+Output from main_q1
+----------------
+Running main() from ./googletest-main/googletest/src//gtest_main.cc
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from RecurrenceTestFixture
+[ RUN      ] RecurrenceTestFixture.GPUAllocationTest_1
+[       OK ] RecurrenceTestFixture.GPUAllocationTest_1 (3176 ms)
+[ RUN      ] RecurrenceTestFixture.InitalizeArrayTest_2
+[       OK ] RecurrenceTestFixture.InitalizeArrayTest_2 (21545 ms)
+[ RUN      ] RecurrenceTestFixture.RecurrenceKernelTest_3
+Largest error found at pos: 10 error 5.96046e-08 expected 0.90869 and got 0.90869
+Largest error found at pos: 86975 error 1.19191e-07 expected 1.00015 and got 1.00015
+Largest error found at pos: 941076 error 2.38392e-07 expected 2.00023 and got 2.00023
+Largest error found at pos: 603501 error 5.61004e-07 expected 16.9994 and got 16.9994
+Largest error found at pos: 603501 error 1.15797e-06 expected 289.897 and got 289.898
+Largest error found at pos: 603501 error 2.324e-06 expected 84041.4 and got 84041.6
+Largest error found at pos: 603501 error 4.63941e-06 expected 7.06296e+09 and got 7.063e+09
+Largest error found at pos: 603501 error 9.25711e-06 expected 4.98854e+19 and got 4.98859e+19
+Largest error found at pos: 581442 error 1.67619e-05 expected 2.14944e+22 and got 2.14948e+22
+Largest error found at pos: 503149 error 2.68556e-05 expected 1.29807e+35 and got 1.29803e+35
+
+Questions 1.1-1.3: your code passed all the tests!
+
+[       OK ] RecurrenceTestFixture.RecurrenceKernelTest_3 (21897 ms)
+[ RUN      ] RecurrenceTestFixture.RecurrenceThreadsTest_4
+                   Q1.4
+------------------------------------------ 
+Number of Threads   Performance TFlops/sec
+               32                  0.25655
+               64                 0.602324
+               96                 0.904185
+              128                  1.20207
+              160                  1.45942
+              192                  1.73562
+              224                  2.03059
+              256                  2.30329
+              288                  2.52616
+              320                   2.7833
+              352                  3.06456
+              384                  3.30405
+              416                  3.41407
+              448                  3.65431
+              480                  3.97733
+              512                  4.13676
+              544                   3.8828
+              576                  4.03868
+              608                  4.38477
+              640                  4.57947
+              672                  4.32967
+              704                  4.50548
+              736                  4.71478
+              768                  4.69387
+              800                  4.29457
+              832                   4.5449
+              864                  4.58101
+              896                  4.82847
+              928                  4.61588
+              960                   4.6343
+              992                  4.81423
+             1024                   4.9431
+
+[       OK ] RecurrenceTestFixture.RecurrenceThreadsTest_4 (94054 ms)
+[ RUN      ] RecurrenceTestFixture.RecurrenceBlocksTest_5
+                   Q1.5
+------------------------------------------ 
+Number of Blocks   Performance TFlops/sec
+              36                 0.439493
+              72                 0.911376
+             108                  1.40902
+             144                   2.3009
+             180                  2.78921
+             216                   3.3194
+             252                    3.853
+             288                  4.35515
+             324                  4.48248
+             360                  5.04781
+             396                  3.24628
+             432                  3.47037
+             468                  3.76934
+             504                  4.00058
+             540                  4.13108
+             576                  4.37418
+             612                  4.62761
+             648                   4.6905
+             684                  4.77735
+             720                  3.86571
+             756                  3.98569
+             792                  4.20846
+             828                  4.30192
+             864                  4.38672
+             900                  4.57032
+             936                   4.7117
+             972                  4.84547
+            1008                  4.91377
+            1044                  4.16273
+            1080                  4.29553
+            1116                   4.3677
+            1152                  4.50653
+
+[       OK ] RecurrenceTestFixture.RecurrenceBlocksTest_5 (94017 ms)
+[ RUN      ] RecurrenceTestFixture.RecurrenceItersTest_6
+                   Q1.6
+------------------------------------------ 
+Number of Iters   Performance TFlops/sec
+             20                 0.905141
+             40                  2.62605
+             60                  3.08388
+             80                  3.55114
+            100                    3.747
+            120                     3.75
+            140                  4.01929
+            160                  3.98248
+            180                  4.18527
+            200                  4.24592
+            300                  3.40599
+            400                  3.35031
+            500                   3.5144
+            600                  3.60231
+            700                  3.58695
+            800                   3.6169
+            900                  3.64786
+           1000                   3.6169
+           1200                  3.65319
+           1400                  3.69682
+           1600                  3.68419
+           1800                  3.70041
+           2000                  3.70953
+           2200                  3.71391
+           2400                   3.7306
+           2600                  3.72587
+           2800                  3.74036
+           3000                  3.74162
+
+[       OK ] RecurrenceTestFixture.RecurrenceItersTest_6 (69511 ms)
+[----------] 6 tests from RecurrenceTestFixture (304202 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (304202 ms total)
+[  PASSED  ] 6 tests.
+
+Output from main_q2
+----------------
+Running main() from ./googletest-main/googletest/src//gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from testQ2
+[ RUN      ] testQ2.testPageRank
+                                     Device Bandwidth GB/sec
+
+                                                  Number of nodes
+                         32768          65536         131072         262144         524288        1048576        2097152        4194304
+ Avg. no. edges
+              2         151.39         232.46         270.31         320.27         324.64          75.76          46.71          36.58
+              3         124.80         183.80         225.42         250.16         270.81          63.75          40.08          31.95
+              4         128.54         185.01         222.07         252.45         264.06          55.99          36.09          29.35
+              5         125.28         194.96         214.74         242.48         236.57          50.76          33.73          28.27
+              6         135.21         191.29         211.88         237.22         178.93          47.91          32.01          26.72
+              7         165.49         232.67         261.91         287.81         142.58          43.75          31.38          25.76
+              8         184.42         253.07         273.15         306.23         112.64          40.55          29.88          25.19
+              9         179.87         247.95         277.85         302.88          93.99          38.31          28.48          24.45
+             10         142.93         188.23         211.35         225.47          81.80          36.68          27.59          23.91
+             11         147.97         194.00         212.56         188.00          73.88          35.34          26.97          23.51
+             12         152.11         193.20         209.26         161.04          68.05          34.29          26.59          23.00
+             13         149.83         193.24         208.79         143.15          63.30          33.35          26.46          22.82
+             14         149.71         193.73         206.08         128.85          59.81          32.60          25.85           1.17
+             15         151.02         194.34         191.01         116.19          57.47          31.96          25.25           2.45
+             16         156.03         193.06         173.31         108.09          55.07          31.36          24.89           3.61
+             17         153.00         192.42         155.78         101.80          52.91          31.16          24.60           4.58
+             18         153.01         193.75         143.73          97.06          51.04          30.81          24.74           5.39
+             19         150.54         189.63         134.29          93.83          49.56          30.21          24.52           6.21
+[       OK ] testQ2.testPageRank (102114 ms)
+[----------] 1 test from testQ2 (102114 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (102114 ms total)
+[  PASSED  ] 1 test.
+
+Output from main_q3
+----------------
+Running main() from ./googletest-main/googletest/src//gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from testQ3
+[ RUN      ] testQ3.StrideTest
+# Using device: Quadro RTX 6000
+# stride     time [ms]   GB/sec
+    1     1.3128     457.0
+    2     3.3346     179.9
+    3     5.3301     112.6
+    4     6.7351      89.1
+    5     8.8165      68.1
+    6    10.1948      58.9
+    7    12.2616      48.9
+    8    13.0980      45.8
+    9    15.5488      38.6
+   10    16.5867      36.2
+   11    18.4502      32.5
+   12    19.3389      31.0
+   13    20.6693      29.0
+   14    20.9155      28.7
+   15    22.2199      27.0
+   16    21.0427      28.5
+   17    23.6057      25.4
+   18    23.6404      25.4
+   19    25.3970      23.6
+   20    25.0229      24.0
+   21    26.3157      22.8
+   22    26.1273      23.0
+   23    28.1926      21.3
+   24    26.9889      22.2
+   25    29.0426      20.7
+   26    27.5892      21.7
+   27    29.9165      20.1
+   28    29.1354      20.6
+   29    30.6281      19.6
+   30    29.5421      20.3
+   31    30.5795      19.6
+   32    28.1873      21.3
+[       OK ] testQ3.StrideTest (1188 ms)
+[----------] 1 test from testQ3 (1188 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1188 ms total)
+[  PASSED  ] 1 test.
